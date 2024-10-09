@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="attendanceForm">
+        <label for="studentId">Enter Student ID:</label>
+        <input type="text" id="studentId" name="studentId" required>
+        <button type="submit">Mark Attendance</button>
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        document.getElementById('attendanceForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const studentId = document.getElementById('studentId').value;
+
+            const response = await fetch(`/api/attendance/mark/${studentId}`, {
+                method: 'POST',
+            });
+
+            const message = await response.text();
+            document.getElementById('message').innerText = message;
+        });
+    </script>
+
+</body>
+
+</html>
